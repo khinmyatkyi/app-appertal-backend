@@ -33,6 +33,7 @@ public class PaymentController {
     @Autowired
     PaymentService paymentService;
 
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('GUEST_ADMIN')")
     @PostMapping("/payment")
     public ResponseEntity<PaymentDTO> save(@RequestBody PaymentDTO paymentDTO) {
 
@@ -40,7 +41,7 @@ public class PaymentController {
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('GUEST_ADMIN')")
     @PutMapping("/payment/{id}")
     public ResponseEntity<PaymentDTO> update(
             @PathVariable("id") Long id,
@@ -56,7 +57,7 @@ public class PaymentController {
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('GUEST_ADMIN')")
     @GetMapping("/payment")
     public ResponseEntity<List<PaymentDTO>> getAll(
     		@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate paymentDate,
@@ -70,7 +71,7 @@ public class PaymentController {
         return new ResponseEntity<>(list, HttpStatus.ACCEPTED);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('GUEST_ADMIN')")
     @GetMapping("/payment/{id}")
     public ResponseEntity<PaymentDTO> getById(@PathVariable("id") Long id) {
 

@@ -32,7 +32,7 @@ public class ApartmentController {
     @Autowired
     ApartmentService apartmentService;
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('GUEST_ADMIN')")
     @PostMapping("/apartment")
     public ResponseEntity<ApartmentDTO> save(@RequestBody ApartmentDTO apartmentDTO) {
     	
@@ -45,7 +45,7 @@ public class ApartmentController {
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('GUEST_ADMIN')")
     @PutMapping("/apartment/{id}")
     public ResponseEntity<ApartmentDTO> update(
             @PathVariable("id") Long id,
@@ -61,7 +61,7 @@ public class ApartmentController {
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('GUEST_ADMIN')")
     @GetMapping("/apartment")
     public ResponseEntity<List<ApartmentDTO>> getAll(
     		@RequestParam(required = false) String apartmentNumber,
@@ -75,7 +75,7 @@ public class ApartmentController {
         return new ResponseEntity<>(list, HttpStatus.ACCEPTED);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('GUEST_ADMIN')")
     @GetMapping("/apartment/{id}")
     public ResponseEntity<ApartmentDTO> getById(@PathVariable("id") Long id) {
 

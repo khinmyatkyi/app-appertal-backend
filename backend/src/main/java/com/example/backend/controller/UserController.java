@@ -42,7 +42,7 @@ public class UserController {
 		return new ResponseEntity<>(usrDTO, HttpStatus.CREATED);			
 	}
 	
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') OR hasRole('GUEST_ADMIN')")
 	@PutMapping("/user/{id}")
 	public ResponseEntity<UserDTO> update(@PathVariable("id") Long id, @RequestBody UserDTO usrDTO)
 	{	

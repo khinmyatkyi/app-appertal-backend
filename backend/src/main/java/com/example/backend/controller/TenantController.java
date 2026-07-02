@@ -32,7 +32,7 @@ public class TenantController {
     @Autowired
     TenantService tenantService;
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('GUEST_ADMIN')")
     @PostMapping("/tenant")
     public ResponseEntity<TenantDTO> save(@RequestBody TenantDTO tenantDTO) {
     	Optional<Tenant> tenantOpt = tenantRepo.findByFirstName(tenantDTO.getFirstName());
@@ -43,7 +43,7 @@ public class TenantController {
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('GUEST_ADMIN')")
     @PutMapping("/tenant/{id}")
     public ResponseEntity<TenantDTO> update(
             @PathVariable("id") Long id,
@@ -59,7 +59,7 @@ public class TenantController {
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('GUEST_ADMIN')")
     @GetMapping("/tenant")
     public ResponseEntity<List<TenantDTO>> getAll(
     		@RequestParam(required = false) String firstName,
@@ -73,7 +73,7 @@ public class TenantController {
         return new ResponseEntity<>(list, HttpStatus.ACCEPTED);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('GUEST_ADMIN')")
     @GetMapping("/tenant/{id}")
     public ResponseEntity<TenantDTO> getById(@PathVariable("id") Long id) {
 

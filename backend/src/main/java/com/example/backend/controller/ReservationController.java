@@ -33,6 +33,7 @@ public class ReservationController {
     @Autowired
     ReservationService reservationService;
 
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('GUEST_ADMIN')")
     @PostMapping("/reservation")
     public ResponseEntity<ReservationDTO> save(@RequestBody ReservationDTO reservationDTO) {
 
@@ -40,7 +41,7 @@ public class ReservationController {
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('GUEST_ADMIN')")
     @PutMapping("/reservation/{id}")
     public ResponseEntity<ReservationDTO> update(
             @PathVariable("id") Long id,
@@ -56,7 +57,7 @@ public class ReservationController {
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('GUEST_ADMIN')")
     @GetMapping("/reservation")
     public ResponseEntity<List<ReservationDTO>> getAll(
     		@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate reservationDate,
@@ -70,7 +71,7 @@ public class ReservationController {
         return new ResponseEntity<>(list, HttpStatus.ACCEPTED);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('GUEST_ADMIN')")
     @GetMapping("/reservation/{id}")
     public ResponseEntity<ReservationDTO> getById(@PathVariable("id") Long id) {
 

@@ -31,7 +31,7 @@ public class InvoiceController {
     @Autowired
     InvoiceService invoiceService;
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('GUEST_ADMIN')")
     @PostMapping("/invoice")
     public ResponseEntity<InvoiceDTO> save(@RequestBody InvoiceDTO invoiceDTO) {
 
@@ -39,7 +39,7 @@ public class InvoiceController {
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('GUEST_ADMIN')")
     @PutMapping("/invoice/{id}")
     public ResponseEntity<InvoiceDTO> update(
             @PathVariable("id") Long id,
@@ -57,7 +57,7 @@ public class InvoiceController {
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('GUEST_ADMIN')")
     @GetMapping("/invoice")
     public ResponseEntity<List<InvoiceDTO>> getAll(
     		@RequestParam(required = false) Long leaseId,
@@ -70,7 +70,7 @@ public class InvoiceController {
         return new ResponseEntity<>(list, HttpStatus.ACCEPTED);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('GUEST_ADMIN')")
     @GetMapping("/invoice/{id}")
     public ResponseEntity<InvoiceDTO> getById(@PathVariable("id") Long id) {
 

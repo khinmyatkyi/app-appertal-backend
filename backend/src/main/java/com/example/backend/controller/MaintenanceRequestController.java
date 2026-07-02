@@ -32,6 +32,7 @@ public class MaintenanceRequestController {
     @Autowired
     MaintenanceRequestService maintenanceService;
 
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('GUEST_ADMIN')")
     @PostMapping("/maintenance-request")
     public ResponseEntity<MaintenanceRequestDTO> save(@RequestBody MaintenanceRequestDTO dto) {
 
@@ -39,7 +40,7 @@ public class MaintenanceRequestController {
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('GUEST_ADMIN')")
     @PutMapping("/maintenance-request/{id}")
     public ResponseEntity<MaintenanceRequestDTO> update(
             @PathVariable("id") Long id,
@@ -55,7 +56,7 @@ public class MaintenanceRequestController {
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('GUEST_ADMIN')")
     @GetMapping("/maintenance-request")
     public ResponseEntity<List<MaintenanceRequestDTO>> getAll(
     		@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate requestDate,
@@ -69,7 +70,7 @@ public class MaintenanceRequestController {
         return new ResponseEntity<>(list, HttpStatus.ACCEPTED);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('GUEST_ADMIN')")
     @GetMapping("/maintenance-request/{id}")
     public ResponseEntity<MaintenanceRequestDTO> getById(@PathVariable("id") Long id) {
 

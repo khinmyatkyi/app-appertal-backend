@@ -31,6 +31,7 @@ public class LeaseController {
     @Autowired
     LeaseService leaseService;
 
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('GUEST_ADMIN')")
     @PostMapping("/lease")
     public ResponseEntity<LeaseDTO> save(@RequestBody LeaseDTO leaseDTO) {
 
@@ -38,7 +39,7 @@ public class LeaseController {
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('GUEST_ADMIN')")
     @PutMapping("/lease/{id}")
     public ResponseEntity<LeaseDTO> update(
             @PathVariable("id") Long id,
@@ -54,7 +55,7 @@ public class LeaseController {
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('GUEST_ADMIN')")
     @GetMapping("/lease")
     public ResponseEntity<List<LeaseDTO>> getAll(
     		@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
@@ -68,7 +69,7 @@ public class LeaseController {
         return new ResponseEntity<>(list, HttpStatus.ACCEPTED);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('GUEST_ADMIN')")
     @GetMapping("/lease/{id}")
     public ResponseEntity<LeaseDTO> getById(@PathVariable("id") Long id) {
 
