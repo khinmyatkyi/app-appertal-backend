@@ -28,16 +28,17 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        http
-            .csrf().disable()
-            .cors().and()
-            .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
-            .authorizeRequests()
-            	.antMatchers("/images/**").permitAll()
-                .antMatchers("/api/**", "/error").permitAll()
-                .anyRequest().authenticated();
+    	http
+        .csrf().disable()
+        .cors().and()
+        .sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .and()
+        .authorizeRequests()
+            .antMatchers("/", "/health", "/error").permitAll()
+            .antMatchers("/api/**").permitAll()
+            .antMatchers("/images/**").permitAll()
+            .anyRequest().authenticated();
 
         http.addFilterBefore(
                 jwtFilter,
